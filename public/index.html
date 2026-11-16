@@ -3,32 +3,108 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zuschauer-Hub: bald live</title>
+  <title>Zuschauer-Hub</title>
   <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
 </head>
 <body>
-  <div class="rain" aria-hidden="true">
-    <span>🍌</span><span>🍌</span><span>🍌</span><span>🍌</span><span>🍌</span>
-    <span>🍌</span><span>🍌</span><span>🍌</span><span>🍌</span><span>🍌</span>
-    <span>🍌</span><span>🍌</span>
+  <div class="rain" id="rain" aria-hidden="true"></div>
+
+  <div class="shell shell-two">
+    <header class="topbar">
+      <div>
+        <h1 id="hub-name">Zuschauer-Hub</h1>
+        <p class="tagline" id="tagline"></p>
+      </div>
+      <div class="topbar-side">
+        <span class="badge badge-off" id="live-badge"><span class="dot"></span><span id="live-text">Offline</span></span>
+        <a class="btn btn-admin" id="admin-link" href="/admin" hidden>⚙️ Admin</a>
+      </div>
+    </header>
+
+    <main class="main-col">
+      <section class="card" id="loading-card">
+        <p class="muted" id="loading-text">Einen Moment, die Seite lädt …</p>
+      </section>
+
+      <section class="card hero" id="guest-card" hidden>
+        <h2>Mach mit im Stream</h2>
+        <p class="lead" id="guest-text"></p>
+        <a class="btn btn-twitch" href="/auth/login">Mit Twitch anmelden</a>
+        <p class="muted small">Für die Anmeldung gibst du keine zusätzlichen Rechte frei. Gespeichert werden nur dein Twitch-Name und dein Kontostand.</p>
+      </section>
+
+      <section class="card" id="account-card" hidden>
+        <div class="card-head">
+          <h2 id="greeting"></h2>
+          <span class="muted small" id="live-line"></span>
+        </div>
+        <div class="counter" id="counter">
+          <span class="counter-number" id="counter-number"></span>
+          <span class="counter-label" id="counter-label"></span>
+        </div>
+
+        <div class="stack" id="watch-box">
+          <div class="progress" aria-hidden="true"><div class="progress-bar" id="watch-bar"></div></div>
+          <p id="watch-text"></p>
+          <p class="muted small" id="watch-hint"></p>
+        </div>
+
+        <div class="stack">
+          <div class="btn-row">
+            <button class="btn btn-primary" id="checkin-button" type="button">Täglicher Check-in</button>
+          </div>
+          <p class="muted small" id="checkin-hint"></p>
+        </div>
+      </section>
+
+      <section class="card" id="actions-card" hidden>
+        <h2>Aktionen im Stream</h2>
+        <div class="action-grid" id="action-grid"></div>
+      </section>
+
+      <section class="card" id="vote-card" hidden>
+        <div class="card-head">
+          <h2 id="vote-title">Abstimmung</h2>
+          <span class="muted small" id="vote-total"></span>
+        </div>
+        <div class="stack" id="vote-rows"></div>
+      </section>
+
+      <section class="card" id="tools-card" hidden>
+        <h2>Dein Konto</h2>
+        <div class="btn-row">
+          <button class="btn" id="logout-button" type="button">Abmelden</button>
+          <button class="btn btn-danger" id="delete-button" type="button">Meine Daten löschen</button>
+        </div>
+        <div class="confirm" id="delete-confirm" hidden>
+          <p><strong>Wirklich alles löschen?</strong> Dein Konto, dein Kontostand und deine Einlösungen werden endgültig entfernt. Das lässt sich nicht rückgängig machen.</p>
+          <div class="btn-row">
+            <button class="btn btn-danger" id="delete-yes" type="button">Ja, endgültig löschen</button>
+            <button class="btn" id="delete-no" type="button">Abbrechen</button>
+          </div>
+        </div>
+      </section>
+
+      <p class="note" id="value-note" hidden></p>
+    </main>
+
+    <aside class="side-col">
+      <section class="card">
+        <h2>Rangliste</h2>
+        <ol class="board" id="board"></ol>
+        <p class="muted small" id="board-empty" hidden>Noch ist niemand auf der Rangliste. Sei die erste Person!</p>
+      </section>
+    </aside>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="/impressum.html">Impressum</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+      </div>
+    </footer>
   </div>
 
-  <main class="card">
-    <div class="badge"><span class="dot"></span> Online</div>
-    <h1>Hier entsteht dein <span class="accent">Zuschauer-Hub</span></h1>
-    <p class="lead">
-      Deine Seite ist live, auf deiner eigenen Domain.
-      Als Nächstes baut Claude Code hier den Twitch-Login, die Bananen, die Rangliste und das OBS-Overlay.
-    </p>
-
-    <ol class="steps">
-      <li class="done"><span>✓</span> Seite online</li>
-      <li><span>2</span> Twitch-App anlegen</li>
-      <li><span>3</span> <code>/hub-bauen</code> in Claude Code</li>
-      <li><span>4</span> Live im Stream</li>
-    </ol>
-  </main>
-
-  <footer>Gebaut mit Claude Code · Starter: twitch-user-events-starter</footer>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>

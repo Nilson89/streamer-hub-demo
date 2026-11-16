@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920">
+  <meta name="robots" content="noindex">
+  <title>Overlay</title>
+  <link rel="stylesheet" href="/overlay.css">
+  <script type="module" src="/overlay.js"></script>
+</head>
+<body>
+  <div class="stage">
+    <div class="rain-layer" id="rain-layer" aria-hidden="true"></div>
+    <div class="vote-panel" id="vote-panel" hidden>
+      <div class="vote-heading" id="vote-heading">Abstimmung</div>
+      <div class="vote-list" id="vote-list"></div>
+    </div>
+    <div class="alerts" id="alerts" aria-live="polite"></div>
+  </div>
+</body>
+</html>

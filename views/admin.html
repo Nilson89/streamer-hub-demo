@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Admin</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/admin.css">
+  <script type="module" src="/admin.js"></script>
+</head>
+<body>
+  <div class="shell shell-narrow">
+    <header class="topbar">
+      <div>
+        <h1>⚙️ Admin</h1>
+        <p class="tagline">Hier stellst du deinen Hub ein. Änderungen gelten sofort nach dem Speichern.</p>
+      </div>
+      <div class="topbar-side">
+        <a class="btn" href="/">Zur Startseite</a>
+      </div>
+    </header>
+
+    <main class="main-col">
+      <p class="note note-danger" id="load-error" hidden>Die Einstellungen konnten nicht geladen werden. Bitte lade die Seite neu.</p>
+
+      <section class="card">
+        <h2>Deine Währung</h2>
+        <div class="preview" id="preview" aria-live="polite"></div>
+        <div class="field-grid" id="currency-fields"></div>
+        <p class="hint">Eigenes Bild? PNG in den Ordner <code>public/waehrung/</code> legen, mit <code>git push</code> hochladen und hier auswählen.</p>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Twitch-Verbindung</h2>
+          <span class="badge badge-off" id="twitch-status"><span class="dot"></span><span id="twitch-status-text">Wird geprüft …</span></span>
+        </div>
+        <p class="muted">Mit der Verbindung darf der Hub genau zwei Dinge: neue Follower erkennen (für den Follow-Bonus) und sehen, wer gerade im Chat ist (für die Zuschau-Belohnung). Mehr Rechte fragt er nicht an. Der Zugang liegt verschlüsselt auf deinem Server, und du kannst ihn jederzeit wieder entfernen.</p>
+        <p class="note note-warn" id="twitch-reconnect" hidden>Bitte Kanal neu verbinden: Die bisherige Verbindung ist nicht mehr gültig. Bis dahin gibt es keinen Follow-Bonus und keine Zuschau-Belohnung.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" id="twitch-connect" href="/auth/streamer">Kanal verbinden</a>
+          <button class="btn btn-danger" id="twitch-remove" type="button" hidden>Verbindung entfernen</button>
+        </div>
+        <div class="confirm" id="twitch-confirm" hidden>
+          <p><strong>Verbindung wirklich entfernen?</strong> Danach gibt es keinen Follow-Bonus und keine Zuschau-Belohnung mehr, bis du den Kanal neu verbindest.</p>
+          <div class="btn-row">
+            <button class="btn btn-danger" id="twitch-remove-yes" type="button">Ja, entfernen</button>
+            <button class="btn" id="twitch-remove-no" type="button">Abbrechen</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 id="values-title">Werte</h2>
+        <div class="field-grid" id="value-fields"></div>
+        <p class="note" id="values-example"></p>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Aktionen</h2>
+          <button class="btn btn-small" id="action-add" type="button">Aktion hinzufügen</button>
+        </div>
+        <p class="error-line" id="actions-error" hidden></p>
+        <div class="action-editors" id="action-editors"></div>
+      </section>
+
+      <section class="card obs-card">
+        <h2>OBS einrichten</h2>
+        <div class="stack">
+          <span class="muted small">Overlay-URL</span>
+          <div class="url-box">
+            <code id="overlay-url">••••••••••••••••••••••••</code>
+            <button class="btn btn-small" id="overlay-toggle" type="button">Anzeigen</button>
+            <button class="btn btn-small" id="overlay-copy" type="button">Kopieren</button>
+          </div>
+          <p class="note note-warn">Nicht im Stream zeigen, wie ein Passwort behandeln.</p>
+        </div>
+        <div class="dims">
+          <div class="dim">
+            <span class="muted small">Breite</span>
+            <strong id="overlay-width">1920</strong>
+            <button class="btn btn-small" id="overlay-width-copy" type="button">Kopieren</button>
+          </div>
+          <span class="dim-sep" aria-hidden="true">·</span>
+          <div class="dim">
+            <span class="muted small">Höhe</span>
+            <strong id="overlay-height">1080</strong>
+            <button class="btn btn-small" id="overlay-height-copy" type="button">Kopieren</button>
+          </div>
+        </div>
+        <ol class="steps">
+          <li>In OBS bei „Quellen“ auf <strong>+</strong> → <strong>Browser</strong>.</li>
+          <li>URL einfügen.</li>
+          <li>Breite <strong id="step-width">1920</strong>, Höhe <strong id="step-height">1080</strong> eintragen.</li>
+          <li>Haken bei „Audio über OBS steuern“ setzen, wenn du den Sound in OBS regeln willst.</li>
+        </ol>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="overlay-test" type="button">Overlay testen</button>
+          <span class="muted small" id="overlay-test-hint" hidden>Du solltest jetzt in OBS eine Test-Animation sehen.</span>
+        </div>
+      </section>
+
+      <section class="card save-card">
+        <div class="btn-row">
+          <button class="btn btn-primary" id="save-button" type="button" disabled>Alles speichern</button>
+          <span class="small" id="save-status" role="status" aria-live="polite"></span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="/impressum.html">Impressum</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

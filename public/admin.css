@@ -1,0 +1,95 @@
+/* Zusätze für die Admin-Seite. Das Grunddesign kommt aus style.css. */
+
+.preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  padding: 20px;
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  background: #101013;
+  color: var(--accent);
+  font-size: clamp(30px, 6vw, 44px);
+  font-weight: 800;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.preview .preview-name { color: var(--text); font-weight: 700; }
+
+.action-editors { display: grid; gap: 14px; }
+
+.action-editor {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card-2);
+}
+
+.action-editor > * { min-width: 0; }
+
+.option-list { display: grid; gap: 8px; }
+
+.option-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.error-line { margin: 0; color: var(--danger); font-size: 14px; }
+
+.url-box {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.url-box code {
+  display: block;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #101013;
+  color: var(--text);
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.url-box code.revealed { white-space: normal; overflow-wrap: anywhere; }
+
+@media (max-width: 639px) {
+  .url-box { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .url-box code { grid-column: 1 / -1; }
+}
+
+.dims {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+
+.dim { display: flex; align-items: center; gap: 10px; }
+.dim strong { font-size: clamp(28px, 6vw, 40px); line-height: 1; color: var(--accent); }
+.dim-sep { font-size: 32px; color: var(--muted); }
+
+.steps { margin: 0; padding-left: 22px; display: grid; gap: 6px; }
+
+.obs-card { border-color: #4a3f73; }
+
+.save-card {
+  position: sticky;
+  bottom: 12px;
+  z-index: 5;
+  padding: 14px 18px;
+  background: #1d1d22;
+  border-color: var(--accent);
+}
